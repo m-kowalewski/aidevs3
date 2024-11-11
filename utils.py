@@ -10,6 +10,30 @@ client = OpenAI()
 client.api_key = os.getenv("OPENAI_API_KEY")
 
 
+def generate_local_llm_response(
+    system_template: str,
+    human_template: str,
+    model: str = "llama2:7b",
+    stream: bool = False,
+    response_format: str = "json",
+    api_url: str = "http://localhost:11434/api/generate",
+) -> str:
+    payload = {
+        "model": model,
+        "prompt": human_template,
+        "stream": stream,
+        "format": response_format,
+        "system": system_template,
+    }
+    try:
+        response = requests.post(api_url, json=payload)
+        response.raise_for_status()
+        result = response.json()
+        return result.get("response", result)
+    except requests.exceptions.RequestException as e:
+        return f"error: {str(e)}"
+
+
 def openai_create(
     system_template: str,
     human_template: str,
