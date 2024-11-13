@@ -1,5 +1,6 @@
 import os
 import requests
+import whisper
 from dotenv import load_dotenv
 from openai import OpenAI
 from typing import Any, Dict, Union
@@ -48,6 +49,14 @@ def openai_create(
         ],
     )
     return response if full_response else response.choices[0].message
+
+
+def whisper_transcribe(
+    path: str, model_name: str = "turbo", full_response: bool = False
+) -> Union[Dict[str, Any], str]:
+    model = whisper.load_model(model_name)
+    result = model.transcribe(path)
+    return result if full_response else result["text"]
 
 
 def aidevs_send_answer(task: str, answer: str) -> requests.Response:
