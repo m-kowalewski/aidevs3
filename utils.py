@@ -1,9 +1,10 @@
+import base64
 import os
 import requests
 import whisper
 from dotenv import load_dotenv
 from openai import OpenAI
-from typing import Any, Dict, Union
+from typing import Any, Dict, List, Union
 
 
 load_dotenv()
@@ -47,6 +48,35 @@ def openai_create(
             {"role": "system", "content": system_template},
             {"role": "user", "content": human_template},
         ],
+    )
+    return response if full_response else response.choices[0].message
+
+
+def openai_vision_create(
+    system_template: str,
+    human_template: str,
+    images: List,
+    model: str = "gpt-4o-mini",
+    temperature: float = 0.5,
+    full_response: bool = False,
+) -> Union[Dict[str, Any], str]:
+    content = [{"type": "text", "text": human_template}]
+    for image in images:
+        content.append(
+            {
+                "type": "image_url",
+                "image_url": {
+                    "url": f"data:image/jpeg;base64, {base64.b64encode(image.read()).decode("utf-8")}"
+                },
+            }
+        )
+    response = client.chat.completions.create(
+        model=model,
+        messages=[
+            {"role": "system", "content": system_template},
+            {"role": "user", "content": content},
+        ],
+        temperature=temperature,
     )
     return response if full_response else response.choices[0].message
 
