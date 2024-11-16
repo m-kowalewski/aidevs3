@@ -4,7 +4,8 @@ import requests
 import whisper
 from dotenv import load_dotenv
 from openai import OpenAI
-from typing import Any, Dict, List, Union
+from openai.types import ImagesResponse
+from typing import Any, Dict, List, Literal, Union
 
 
 load_dotenv()
@@ -79,6 +80,20 @@ def openai_vision_create(
         temperature=temperature,
     )
     return response if full_response else response.choices[0].message
+
+
+def openai_image_create(
+    human_template: str,
+    model: str = "dall-e-3",
+    n: int = 1,
+    size: Literal[
+        "256x256", "512x512", "1024x1024", "1792x1024", "1024x1792"
+    ] = "1024x1024",
+) -> ImagesResponse:
+    response = client.images.generate(
+        model=model, prompt=human_template, n=n, size=size
+    )
+    return response
 
 
 def whisper_transcribe(
