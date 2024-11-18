@@ -1,11 +1,13 @@
 import base64
 import os
+import re
 import requests
 import whisper
+from collections import defaultdict
 from dotenv import load_dotenv
 from openai import OpenAI
 from openai.types import ImagesResponse
-from typing import Any, Dict, List, Literal, Union
+from typing import Any, Dict, List, Literal, Optional, Union
 
 
 load_dotenv()
@@ -109,3 +111,31 @@ def aidevs_send_answer(task: str, answer: str) -> requests.Response:
     url: str = os.getenv("AIDEVS3_API_URL")
     payload: Dict[str, Any] = {"task": task, "apikey": apikey, "answer": answer}
     return requests.post(url, json=payload)
+
+
+def group_files_by_type(
+    directory: str, file_types={".png": "Images", ".mp3": "Audio", ".txt": "Text"}
+) -> Dict[str, List[str]]:
+    """
+    Groups files in the given directory by their type (.png, .mp3, .txt).
+    Args:
+        directory (str): The path to the directory to scan.
+    Returns:
+        Dict[str, List[str]]: A dictionary where keys are file types and values are lists of file paths.
+    """
+    grouped_files = defaultdict(list)
+
+    for file_name in os.listdir(directory):
+        file_path = os.path.join(directory, file_name)
+
+        if os.path.isfile(file_path):
+            _, ext = os.path.splitext(file_name)
+            if ext in file_types:
+                grouped_files[file_types[ext]].append(file_name)
+
+    return grouped_files
+
+
+def extract_answer(text: str) -> Optional[str]:
+    match = re.search(r"<ANSWER>(.*?)</ANSWER>", text, re.DOTALL)
+    return match.group(1).strip() if match else None
