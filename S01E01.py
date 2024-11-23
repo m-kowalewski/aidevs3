@@ -3,7 +3,7 @@ import re
 import requests
 from dotenv import load_dotenv
 from loguru import logger
-from utils import openai_create
+from utils_ai import openai_create
 
 
 load_dotenv()

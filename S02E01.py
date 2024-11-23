@@ -3,7 +3,7 @@ import re
 from loguru import logger
 from typing import List, Optional
 
-from utils import aidevs_send_answer, openai_create, whisper_transcribe
+from utils_ai import aidevs_send_answer, openai_create, whisper_transcribe
 
 
 def extract_answer(text: str) -> Optional[str]:

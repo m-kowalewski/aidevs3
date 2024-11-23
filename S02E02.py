@@ -2,7 +2,7 @@ import os
 from loguru import logger
 from typing import List
 
-from utils import openai_vision_create
+from utils_ai import openai_vision_create
 
 
 def run():

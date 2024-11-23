@@ -2,14 +2,16 @@ import os
 import requests
 from loguru import logger
 
-from utils import (
+from utils_ai import (
     aidevs_send_answer,
-    group_files_by_type,
     openai_create,
     openai_vision_create,
+    whisper_transcribe,
+)
+from utils_files_and_text import (
+    group_files_by_type,
     replace_placeholders_in_text,
     transfer_webpage_to_markdown,
-    whisper_transcribe,
 )
 
 

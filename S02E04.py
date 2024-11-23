@@ -2,13 +2,15 @@ import os
 from loguru import logger
 from typing import Dict
 
-from utils import (
+from utils_ai import (
     aidevs_send_answer,
-    extract_answer,
-    group_files_by_type,
     openai_vision_create,
     openai_create,
     whisper_transcribe,
+)
+from utils_files_and_text import (
+    extract_answer,
+    group_files_by_type,
 )
 
 

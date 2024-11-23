@@ -3,7 +3,7 @@ import json
 import requests
 from dotenv import load_dotenv
 from loguru import logger
-from utils import aidevs_send_answer, generate_local_llm_response
+from utils_ai import aidevs_send_answer, generate_local_llm_response
 
 
 load_dotenv()

@@ -2,7 +2,7 @@ import os
 import json
 from dotenv import load_dotenv
 from loguru import logger
-from utils import openai_create, aidevs_send_answer
+from utils_ai import openai_create, aidevs_send_answer
 
 
 load_dotenv()

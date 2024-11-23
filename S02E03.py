@@ -2,7 +2,7 @@ import os
 import requests
 from loguru import logger
 
-from utils import aidevs_send_answer, openai_image_create
+from utils_ai import aidevs_send_answer, openai_image_create
 
 
 def run():

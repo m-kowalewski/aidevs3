@@ -1,11 +1,13 @@
 import os
 from loguru import logger
 
-from utils import (
+from utils_ai import (
     aidevs_send_answer,
+    openai_create,
+)
+from utils_files_and_text import (
     extract_answer,
     group_files_by_type,
-    openai_create,
 )
 
 
