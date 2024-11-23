@@ -97,8 +97,8 @@ def openai_image_create(
 
 
 def openai_get_embedding(text: str, model: str = "text-embedding-3-small"):
-   text = text.replace("\n", " ")
-   return client.embeddings.create(input = [text], model=model).data[0].embedding
+    text = text.replace("\n", " ")
+    return client.embeddings.create(input=[text], model=model).data[0].embedding
 
 
 def whisper_transcribe(
