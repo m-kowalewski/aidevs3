@@ -1,3 +1,5 @@
+# import os
+
 from loguru import logger
 from qdrant_client import QdrantClient
 from qdrant_client.models import Distance, VectorParams, PointStruct
@@ -7,6 +9,10 @@ from utils_ai import openai_get_embedding
 
 
 client = QdrantClient(host="localhost", port=6333)
+# client = QdrantClient(
+#     url=os.getenv("QDRANT_URL"),
+#     api_key=os.getenv("QDRANT_URL"),
+# )
 
 
 def qdrant_create_collection(
