@@ -122,3 +122,10 @@ def aidevs_s03e03_query(user_query: Any) -> requests.Response:
     url: str = os.getenv("S03E03_API_URL")
     payload: Dict[str, Any] = {"task": task, "apikey": apikey, "query": user_query}
     return requests.post(url, json=payload)
+
+
+def aidevs_s03e04_query(user_query: Any, system_name: str) -> requests.Response:
+    apikey: str = os.getenv("AIDEVS3_API_KEY")
+    url: str = os.getenv(system_name)
+    payload: Dict[str, Any] = {"apikey": apikey, "query": user_query}
+    return requests.post(url, json=payload)
