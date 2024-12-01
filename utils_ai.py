@@ -3,7 +3,10 @@ import os
 import requests
 import whisper
 from dotenv import load_dotenv
-from openai import OpenAI
+
+# from openai import OpenAI
+from langfuse.openai import OpenAI
+from langfuse.decorators import observe
 from openai.types import ImagesResponse
 from typing import Any, Dict, List, Literal, Union
 
@@ -37,6 +40,7 @@ def generate_local_llm_response(
         return f"error: {str(e)}"
 
 
+@observe(name="openai_create")
 def openai_create(
     system_template: str,
     human_template: str,
