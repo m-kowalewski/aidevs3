@@ -57,6 +57,7 @@ def openai_create(
     return response if full_response else response.choices[0].message
 
 
+@observe(name="openai_vision_create")
 def openai_vision_create(
     system_template: str,
     human_template: str,
