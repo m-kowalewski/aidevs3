@@ -135,3 +135,13 @@ def group_files_by_type(
 def extract_answer(text: str) -> Optional[str]:
     match = re.search(r"<ANSWER>(.*?)</ANSWER>", text, re.DOTALL)
     return match.group(1).strip() if match else None
+
+
+def extract_redirect(text: str) -> Optional[str]:
+    match = re.search(r"<REDIRECT>(.*?)</REDIRECT>", text, re.DOTALL)
+    return match.group(1).strip() if match else None
+
+
+def check_if_error(text: str) -> bool:
+    match = re.search(r"<ERROR>(.*?)</ERROR>", text, re.DOTALL)
+    return True if match else False
